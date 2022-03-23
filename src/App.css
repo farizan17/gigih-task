@@ -1,38 +1,100 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: sans-serif;
+}
+h1 {
+  justify-content: center;
+  display: flex;
+  margin-bottom: 25px;
+  margin-top: 50px;
+  padding-top: 50px;
+  color: white;
+}
 .App {
-  text-align: center;
+  max-width: 768px;
+  margin: auto;
+  margin-top: 200px;
+  height: 640px;
+  background-color: #282828;
+  border-radius: 20px;
+  align-items: center;
+  display: flex;
+}
+.music-play {
+  margin: auto;
+  gap: 20px;
+}
+.music-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+img {
+  width: 200px;
+  margin-right: 50px;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.music-text {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  width: 350px;
+}
+.music-album {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+#album-name {
+  font-size: 20px;
+  width: 100%;
+  color: white;
+}
+#artist-name {
+  color: #dcdcdc;
+  font-size: 16px;
+  width: 100px;
+}
+.music-album-text {
+  max-width: 60%;
+}
+.music-album-play-btn {
+  width: 80px;
+}
+.music-album-play-btn button {
+  background-color: #90ee90;
+  height: 40px;
+  width: 100%;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+}
+.music-album-play-btn button:hover {
+  background-color: #008000;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+ol {
+  padding-left: 20px;
+  color: white;
 }
+.list-music {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 7px;
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  padding: 0px 10px;
+  cursor: pointer;
+}
+.list-music:hover {
+  background-color: grey;
+  border-radius: 10px;
+}
+.list-music p {
+  color: white;
 }
