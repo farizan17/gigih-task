@@ -2,7 +2,12 @@ import React from "react";
 import { useEffect, useState } from 'react';
 import './App.css';
 
-
+import AlbumName from "./components/album_name";
+import ArtistName from "./components/artist_name";
+import AlbumImage from "./components/image_album";
+import SongTitle from "./components/song_title";
+import SongDuration from "./components/time";
+import SelectButton from "./components/select_btn";
 
 function App() {
 
@@ -40,23 +45,23 @@ function App() {
     <div className="App">
       <div className="music-play">
         <div className="music-container">
-          <img alt="music-img" id="album-photo" src={data.album?.images[0].url} />
+          <AlbumImage image={data.album?.images[0].url}/>
           <div className="music-text">
             <div className="music-album">
               <div className="music-album-text">
-                <h2 id="album-name">{data.album?.name}</h2>
-                <p id="artist-name">{data.artists?.[0].name}</p>
+                <AlbumName album={data.album?.name}/>
+                <ArtistName artist={data.artists?.[0].name}/>
               </div>
               <div class="music-album-play-btn">
-                <button>Select</button>
+                <SelectButton/>
               </div>
             </div>
             <div className="music-title">
               <ol>
                 <li>
                   <div className="list-music">
-                    <p id="track-name">{data.name}</p>
-                    <p id="time">{millisToMinutesAndSeconds(data.duration_ms)}</p>
+                    <SongTitle title={data.name}/>
+                    <SongDuration time={millisToMinutesAndSeconds(data.duration_ms)}/>
                   </div>
                 </li>
               </ol>
