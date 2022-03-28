@@ -13,19 +13,27 @@ h1 {
   padding-top: 50px;
   color: white;
 }
-.App {
-  max-width: 768px;
+.The-realApp {
   margin: auto;
-  margin-top: 200px;
-  height: 640px;
+  height: 150vh;
+  padding-bottom: 100px;
   background-color: #282828;
+  padding-top: 100px;
+}
+.App {
   border-radius: 20px;
   align-items: center;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 .music-play {
+  width: 80%;
+  background-color: #1d1d1d;
   margin: auto;
   gap: 20px;
+  padding: 10px;
+  border-radius: 10px;
 }
 .music-container {
   display: flex;
