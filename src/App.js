@@ -14,11 +14,11 @@ function App() {
 
   // const [data, setData] = useState([]);
   
-  function millisToMinutesAndSeconds(millis) {
-    var minutes = Math.floor(millis / 60000);
-    var seconds = ((millis % 60000) / 1000).toFixed(0);
-    return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
-  }
+  // function millisToMinutesAndSeconds(millis) {
+  //   var minutes = Math.floor(millis / 60000);
+  //   var seconds = ((millis % 60000) / 1000).toFixed(0);
+  //   return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+  // }
   // fetching data//
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -40,6 +40,41 @@ function App() {
   // }, []);  
   // console.log(data);
 
+  const [token, setToken] = useState("");
+  const [data, setData] = useState([]);
+  const [name, setName] = useState("");
+
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")) {
+      setToken(localStorage.getItem("accessToken"));
+    }
+  }, []);
+
+  useEffect(() => {
+      const getDataAndRender = async () => {
+        try {
+          const response = await fetch(
+            `https://api.spotify.com/v1/search?q=${name}&type=album`, {
+              headers: {
+                Authorization: `Bearer BQA6sNZn4VPNZwoY2ErjtyUYNzP3FuWQYjnU3OcAyVZX1nYbUwEUqh3co6IPc9Bt_9igybYiJy5LAVjiFfvMgi7V3SJxD1t2UkichlfViwnC8tyhdZt68PykeSPmTpgJBn6amHhWGrn8RVAHu8tIYW9iBwNNzEViT70tQixhV7Jt3tOoeBo`
+              },
+              params: {
+                q:"queen",
+                type:"album"
+              }
+            }
+          );
+          if (!response.ok) throw new Error("Error");
+          const results = await response.json();
+          console.log("using async", results);
+          setData(results);
+        } 
+        catch (error) {
+          console.log(error);
+        }
+      };
+      getDataAndRender();
+    }, [name]);
   
   return (
     <div className="The-realApp">
