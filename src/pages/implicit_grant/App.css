@@ -1,0 +1,12 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.container {
+    background-color: #282828;
+    display: flex;
+    flex-direction: column;
+}
+.container h1 button {
+    margin: auto;
+}
