@@ -1,6 +1,7 @@
-import React from 'react';
+import React from "react";
+import { NavLink } from "react-router-dom";
 import "./index.css";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 import AlbumName from "../../components/album_name";
 import ArtistName from "../../components/artist_name";
@@ -8,76 +9,116 @@ import AlbumImage from "../../components/image_album";
 import SongTitle from "../../components/song_title";
 import SongDuration from "../../components/time";
 import SelectButton from "../../components/select_btn";
+import Playlist from "../playlist";
 
-
-export default function Home () {
+export default function Home() {
   const [token, setToken] = useState("");
   const [data, setData] = useState([]);
   const [name, setName] = useState("");
+  const [selected, setSelected] = useState("");
 
   useEffect(() => {
-    if (localStorage.getItem("accessToken")) {
-      setToken(localStorage.getItem("accessToken"));
+    const hash = window.location.hash;
+    let token = window.localStorage.getItem("token");
+
+    // getToken()
+
+    if (!token && hash) {
+      token = hash
+        .substring(1)
+        .split("&")
+        .find((elem) => elem.startsWith("access_token"))
+        .split("=")[1];
+
+      window.location.hash = "";
+      window.localStorage.setItem("token", token);
     }
+
+    setToken(token);
   }, []);
 
+  const handleSelect = (uri) => {
+    setSelected([...selected, uri]);
+  };
+
+  const handleDelete = (uri) => {
+    setSelected(selected.filter((item) => item !== uri));
+  };
+
   useEffect(() => {
-      const getDataAndRender = async () => {
-        try {
-          const response = await fetch(
-            `https://api.spotify.com/v1/search?q=${name}&type=album`, {
-              headers: {
-                Authorization: `Bearer ${token}`
-              }
-            }
-          );
-          if (!response.ok) throw new Error("Error");
-          const results = await response.json();
-          console.log("using async", results);
-          setData(results);
-        } 
-        catch (error) {
-          console.log(error);
-        }
-      };
-      getDataAndRender();
-    }, [name]);
-    return (
-        <div className="The-realApp">
-            <input type="text" placeholder="Search.." onChange={(e) => setName(e.target.value)}/>
-            <button>Search</button>
-    <div className="App">
-      {data.map((v)=> {
-        return (
-          <div className="music-play">
-        <div className="music-container">
-          <AlbumImage image={v.album.images[0].url}/>
-          <div className="music-text">
-            <div className="music-album">
-              <div className="music-album-text">
-                <AlbumName album={v.album.name}/>
-                <ArtistName artist={v.artists.name}/>
-              </div>
-              <div className="music-album-play-btn">
-                <SelectButton/>
-              </div>
-            </div>
-            <div className="music-title">
-              <ol>
-                <li>
-                  <div className="list-music">
-                    <SongTitle title={v.name}/>
-                    {/* <SongDuration time={millisToMinutesAndSeconds(v.duration_ms)}/> */}
-                  </div>
-                </li>
-              </ol>
-            </div>
-          </div>
+    console.log(selected);
+  }, [selected]);
+
+  const getDataAndRender = async (e) => {
+    e.preventDefault();
+    const res = await fetch(
+      `https://api.spotify.com/v1/search?q=${name}&type=album`,
+      {
+        headers: {
+          Authorization: `Bearer BQBTBFlzv22i5qQyIBeXH1y_ku9HRUKNIsezH3QMDX4isV9wmdas1MvRll6wUOuako3eEOfpCJBSIq9voAR-0_umoxf9MQxBvQQyW2pHguxi86vRx9crj1S_VlfVDQnkwNd_fcbzwUOSpCG0xf6S6Ug7BjA6NEuiZ416QBcV`,
+        },
+      }
+    ).then((response) => response.json());
+    // .then((data) => console.log(data.albums.items));
+
+    setData(res.albums.items);
+  };
+  
+  console.log(data);
+  return (
+    <div className="The-realApp">
+      <form className="search-form" onSubmit={getDataAndRender}>
+        <input
+          type="text"
+          placeholder="Search by album/track"
+          onChange={(e) => setName(e.target.value)}
+        />
+        <button type="submit">Search</button>
+      </form>
+      <div className="btn-create">
+          <NavLink to="/playlist">
+            <button onClick={() => <Playlist />}>Create Playlist</button>
+          </NavLink>
         </div>
-      </div>  
-        );   
-      })}
+      <div className="App">
+        {data &&
+          data.map((v, index) => {
+            return (
+              <div className="music-play" key={index}>
+                <div className="music-container">
+                  <AlbumImage image={v.images[0].url} />
+                  <div className="music-text">
+                    <div className="music-album">
+                      <div className="music-album-text">
+                        <AlbumName album={v.name} />
+                        <ArtistName artist={v.artists[0].name} />
+                      </div>
+                      <div className="music-album-play-btn">
+                      <div>
+                      {selected.includes(v.uri) ? (
+                        <button
+                          className="btn3"
+                          onClick={() => handleDelete(v.uri)}
+                        >
+                          Selected
+                        </button>
+                      ) : (
+                        <button
+                          className="btn2"
+                          onClick={() => handleSelect(v.uri)}
+                        >
+                          Select
+                        </button>
+                      )}
+                    </div>                      
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+      </div>
     </div>
-    </div>
-    );
+  );
 }

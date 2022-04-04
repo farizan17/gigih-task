@@ -13,6 +13,7 @@ import data from "./DB";
 
 import WebApp from "./pages/implicit_grant/App";
 import Home from "./pages/home";
+import Playlist from "./pages/playlist";
 
 function App() {
 
@@ -49,6 +50,7 @@ function App() {
       <Routes>
       <Route exact path="/" element={<WebApp />} />
       <Route exact path="/home" element={<Home />} />
+      <Route exact path="/playlist" element={<Playlist />} />
       </Routes>
     </Router>
     </>

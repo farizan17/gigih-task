@@ -21,6 +21,12 @@
     padding-top: 100px;
     justify-content: center;
   }
+  .search-form {
+    margin:auto;
+    display: flex;
+    justify-content:center ;
+    margin-bottom: 50px;
+  }
   .App {
     border-radius: 20px;
     align-items: center;

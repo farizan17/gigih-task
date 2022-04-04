@@ -47,7 +47,6 @@ const WebApp = () => {
     <div className="container">
       <h1>Silahkan Login</h1>
       <button onClick={handleLogin}>login to spotify</button>
-      <Home />
     </div>
   );
 };
