@@ -8,7 +8,7 @@ function Playlist({ token, selected }) {
     e.preventDefault();
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", `Bearer BQChs5EbkTelT6hUSOyBVpAgaIhnaD8uDt5kW2r2DkW7Z6wkq-FJeWUlkhD4pW-01hiDJL8D2r-zV5M44wmcxgjNWqDpBNuQlUfURYfrsI22w22JCrI526_F8_l9meVIshPNnePb_kXC6LYqMxNTNwInK44AzIR21hpaeVSj`);
+    myHeaders.append("Authorization", `Bearer ${token}`);
 
     var raw = JSON.stringify({
       name: `${title}`,
@@ -23,10 +23,7 @@ function Playlist({ token, selected }) {
       redirect: "follow",
     };
 
-    fetch(
-      "https://api.spotify.com/v1/users/mfarizan/playlists",
-      requestOptions
-    )
+    fetch("https://api.spotify.com/v1/users/mfarizan/playlists", requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));

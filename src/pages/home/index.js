@@ -55,7 +55,7 @@ export default function Home() {
       `https://api.spotify.com/v1/search?q=${name}&type=album`,
       {
         headers: {
-          Authorization: `Bearer BQChs5EbkTelT6hUSOyBVpAgaIhnaD8uDt5kW2r2DkW7Z6wkq-FJeWUlkhD4pW-01hiDJL8D2r-zV5M44wmcxgjNWqDpBNuQlUfURYfrsI22w22JCrI526_F8_l9meVIshPNnePb_kXC6LYqMxNTNwInK44AzIR21hpaeVSj`,
+          Authorization: `Bearer ${token}`,
         },
       }
     ).then((response) => response.json());
