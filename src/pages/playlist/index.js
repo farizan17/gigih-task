@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Playlist({ token }) {
+function Playlist({ token, selected }) {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
 
@@ -8,7 +8,7 @@ function Playlist({ token }) {
     e.preventDefault();
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", `Bearer ${token}`);
+    myHeaders.append("Authorization", `Bearer BQChs5EbkTelT6hUSOyBVpAgaIhnaD8uDt5kW2r2DkW7Z6wkq-FJeWUlkhD4pW-01hiDJL8D2r-zV5M44wmcxgjNWqDpBNuQlUfURYfrsI22w22JCrI526_F8_l9meVIshPNnePb_kXC6LYqMxNTNwInK44AzIR21hpaeVSj`);
 
     var raw = JSON.stringify({
       name: `${title}`,
@@ -31,7 +31,6 @@ function Playlist({ token }) {
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
   };
-  console.log(token);
   return (
     <div className="container-create">
       <div className="kotak-create">

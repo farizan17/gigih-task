@@ -55,7 +55,7 @@ export default function Home() {
       `https://api.spotify.com/v1/search?q=${name}&type=album`,
       {
         headers: {
-          Authorization: `Bearer BQBTBFlzv22i5qQyIBeXH1y_ku9HRUKNIsezH3QMDX4isV9wmdas1MvRll6wUOuako3eEOfpCJBSIq9voAR-0_umoxf9MQxBvQQyW2pHguxi86vRx9crj1S_VlfVDQnkwNd_fcbzwUOSpCG0xf6S6Ug7BjA6NEuiZ416QBcV`,
+          Authorization: `Bearer BQChs5EbkTelT6hUSOyBVpAgaIhnaD8uDt5kW2r2DkW7Z6wkq-FJeWUlkhD4pW-01hiDJL8D2r-zV5M44wmcxgjNWqDpBNuQlUfURYfrsI22w22JCrI526_F8_l9meVIshPNnePb_kXC6LYqMxNTNwInK44AzIR21hpaeVSj`,
         },
       }
     ).then((response) => response.json());
@@ -75,11 +75,12 @@ export default function Home() {
         />
         <button type="submit">Search</button>
       </form>
-      <div className="btn-create">
+      {/* <div className="btn-create">
           <NavLink to="/playlist">
-            <button onClick={() => <Playlist />}>Create Playlist</button>
+            <button onClick={() => <Playlist token={token} />}>Create Playlist</button>
           </NavLink>
-        </div>
+        </div> */}
+        <Playlist token={token} selected={selected}/>
       <div className="App">
         {data &&
           data.map((v, index) => {
