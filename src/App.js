@@ -6,8 +6,9 @@ import { connect } from "react-redux";
 import Home from "./pages/home";
 import Playlist from "./pages/playlist";
 import Login from "./pages/implicit_grant/App";
+import Auth from "./components/api/auth";
 
-class App extends Component() {
+class App extends Component {
   componentDidMount() {
     const hash = window.location.hash
       .substring(1)
@@ -36,9 +37,11 @@ class App extends Component() {
     <>
     <Router>
       <Routes>
-      <Route  path="/" element={<Login/>} />
+      <Route  path="/" element={<Auth/>} />
       <Route  path="/home" element={this.isValidToken() ? <Home token={this.props.token}/> : <Navigate to ="/" />}/>
       <Route  path="/playlist" element={this.isValidToken() ? <Playlist token={this.props.token}/> : <Navigate to ="/" />} />
+      <Route  path="*" element={<Auth/>} />
+
       </Routes>
     </Router>
     </>

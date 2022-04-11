@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Login from "../../pages/implicit_grant/App";
 import Home from "../../pages/home";
 
-class Auth extends Component() {
+class Auth extends Component {
   componentDidMount() {
     const hash = window.location.hash
       .substring(1)
