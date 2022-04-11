@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
-import Home from "../home";
 import "./App.css";
-// import SpotifyGetPlaylists from "./components/SpotifyGetPlaylists/SpotifyGetPlaylists";
-// import "./WebApp.css";
 
+// import SpotifyGetPlaylists from "./components/SpotifyGetPlaylists/SpotifyGetPlaylists";
 const CLIENT_ID = "4367530b949f4ae8888dcc4a7a1872f8"; // insert your client id here from spotify
 const SPOTIFY_AUTHORIZE_ENDPOINT = "https://accounts.spotify.com/authorize";
 const REDIRECT_URL_AFTER_LOGIN = "http://localhost:3000/home";
@@ -25,7 +23,7 @@ const getReturnedParamsFromSpotifyAuth = (hash) => {
   return paramsSplitUp;
 };
 
-const WebApp = () => {
+const Login = () => {
   useEffect(() => {
     if (window.location.hash) {
       const { access_token, expires_in, token_type } =
@@ -51,4 +49,4 @@ const WebApp = () => {
   );
 };
 
-export default WebApp;
+export default Login;

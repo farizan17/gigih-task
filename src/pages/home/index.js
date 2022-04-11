@@ -1,41 +1,40 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import "./index.css";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
 
 import AlbumName from "../../components/album_name";
 import ArtistName from "../../components/artist_name";
 import AlbumImage from "../../components/image_album";
-import SongTitle from "../../components/song_title";
-import SongDuration from "../../components/time";
-import SelectButton from "../../components/select_btn";
+
 import Playlist from "../playlist";
 
 export default function Home() {
-  const [token, setToken] = useState("");
+  const token = useSelector((state) => state.token);
   const [data, setData] = useState([]);
   const [name, setName] = useState("");
   const [selected, setSelected] = useState("");
 
-  useEffect(() => {
-    const hash = window.location.hash;
-    let token = window.localStorage.getItem("token");
+  // useEffect(() => {
+  //   const hash = window.location.hash;
+  //   let token = window.localStorage.getItem("token");
 
-    // getToken()
+  //   // getToken()
 
-    if (!token && hash) {
-      token = hash
-        .substring(1)
-        .split("&")
-        .find((elem) => elem.startsWith("access_token"))
-        .split("=")[1];
+  //   if (!token && hash) {
+  //     token = hash
+  //       .substring(1)
+  //       .split("&")
+  //       .find((elem) => elem.startsWith("access_token"))
+  //       .split("=")[1];
 
-      window.location.hash = "";
-      window.localStorage.setItem("token", token);
-    }
+  //     window.location.hash = "";
+  //     window.localStorage.setItem("token", token);
+  //   }
 
-    setToken(token);
-  }, []);
+  //   setToken(token);
+  // }, []);
 
   const handleSelect = (uri) => {
     setSelected([...selected, uri]);
