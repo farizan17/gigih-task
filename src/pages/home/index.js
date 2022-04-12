@@ -3,7 +3,6 @@ import "./index.css";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-
 import AlbumName from "../../components/album_name";
 import ArtistName from "../../components/artist_name";
 import AlbumImage from "../../components/image_album";
@@ -14,7 +13,7 @@ export default function Home() {
   const token = useSelector((state) => state.token);
   const [data, setData] = useState([]);
   const [name, setName] = useState("");
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState([]);
 
   // useEffect(() => {
   //   const hash = window.location.hash;
@@ -51,7 +50,7 @@ export default function Home() {
   const getDataAndRender = async (e) => {
     e.preventDefault();
     const res = await fetch(
-      `https://api.spotify.com/v1/search?q=${name}&type=album`,
+      `https://api.spotify.com/v1/search?q=${name}&type=track`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -60,12 +59,13 @@ export default function Home() {
     ).then((response) => response.json());
     // .then((data) => console.log(data.albums.items));
 
-    setData(res.albums.items);
+    setData(res.tracks.items);
   };
-  
+
   console.log(data);
   return (
     <div className="The-realApp">
+      <h1>Create Playlist</h1>
       <form className="search-form" onSubmit={getDataAndRender}>
         <input
           type="text"
@@ -74,19 +74,14 @@ export default function Home() {
         />
         <button type="submit">Search</button>
       </form>
-      {/* <div className="btn-create">
-          <NavLink to="/playlist">
-            <button onClick={() => <Playlist token={token} />}>Create Playlist</button>
-          </NavLink>
-        </div> */}
-        <Playlist token={token} selected={selected}/>
+      <Playlist token={token} selected={selected} />
       <div className="App">
         {data &&
           data.map((v, index) => {
             return (
               <div className="music-play" key={index}>
                 <div className="music-container">
-                  <AlbumImage image={v.images[0].url} />
+                  <AlbumImage image={v.album.images[0].url} />
                   <div className="music-text">
                     <div className="music-album">
                       <div className="music-album-text">
@@ -94,24 +89,24 @@ export default function Home() {
                         <ArtistName artist={v.artists[0].name} />
                       </div>
                       <div className="music-album-play-btn">
-                      <div>
-                      {selected.includes(v.uri) ? (
-                        <button
-                          className="btn3"
-                          onClick={() => handleDelete(v.uri)}
-                        >
-                          Selected
-                        </button>
-                      ) : (
-                        <button
-                          className="btn2"
-                          onClick={() => handleSelect(v.uri)}
-                        >
-                          Select
-                        </button>
-                      )}
-                    </div>                      
-                    </div>
+                        <div>
+                          {selected.includes(v.uri) ? (
+                            <button
+                              className="btn3"
+                              onClick={() => handleDelete(v.uri)}
+                            >
+                              Selected
+                            </button>
+                          ) : (
+                            <button
+                              className="btn2"
+                              onClick={() => handleSelect(v.uri)}
+                            >
+                              Select
+                            </button>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
