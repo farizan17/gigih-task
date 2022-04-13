@@ -39,8 +39,6 @@ class App extends Component {
       <Routes>
       <Route  path="/" element={<Auth/>} />
       <Route  path="/home" element={this.isValidToken() ? <Home token={this.props.token}/> : <Navigate replace to ="/" />}/>
-      <Route  path="/playlist" element={this.isValidToken() ? <Playlist token={this.props.token}/> : <Navigate replace to ="/" />} />
-      <Route  path="*" element={<Auth/>} />
       </Routes>
     </Router>
     </>
