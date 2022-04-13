@@ -1,9 +1,16 @@
 import React, { useState } from "react";
+import { Textarea } from "@chakra-ui/react";
+import { Input } from "@chakra-ui/react";
+import { Button, ButtonGroup } from "@chakra-ui/react";
+import { useToast } from '@chakra-ui/react'
+
+import "./index.css";
 
 function Playlist({ token, selected }) {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [id, setId] = useState("");
+  const toast = useToast()
 
   const create = async (e) => {
     e.preventDefault();
@@ -25,12 +32,12 @@ function Playlist({ token, selected }) {
     };
 
     fetch("https://api.spotify.com/v1/users/mfarizan/playlists", requestOptions)
-      .then(response => response.json())
-      // .then(data => console.log(data.id))
-      .then(data => setId(data.id))
+      .then((response) => response.json())
+      .then((data) => setId(data.id))
       .catch((error) => console.log("error", error));
   };
   const addSong = async () => {
+    
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Authorization", `Bearer ${token}`);
@@ -44,7 +51,10 @@ function Playlist({ token, selected }) {
       redirect: "follow",
     };
 
-    fetch(`https://api.spotify.com/v1/playlists/${id}/tracks?uris=${selected}`, requestOptions)
+    fetch(
+      `https://api.spotify.com/v1/playlists/${id}/tracks?uris=${selected}`,
+      requestOptions
+    )
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
@@ -54,21 +64,30 @@ function Playlist({ token, selected }) {
       <div className="kotak-create">
         <div className="box-create">
           <form onSubmit={create}>
-            <input
+            <Input
+              className="playlist-name"
               type="text"
               placeholder="Playlist title"
               onChange={(e) => setTitle(e.target.value)}
             />
             <br></br>
-            <input
+
+            <Textarea
+              className="playlist-desc"
               type="text"
               placeholder="Description"
               onChange={(e) => setDesc(e.target.value)}
             />
             <br></br>
-            <button type="submit">Submit</button>
+            <div className="btn-wrapper">
+              <Button type="submit" colorScheme="teal" variant="outline">
+                Submit
+              </Button>
+              <Button onClick={addSong} colorScheme="teal" variant="outline">
+                Add Song
+              </Button>
+            </div>
           </form>
-          <button onClick={addSong}>add</button>
         </div>
       </div>
     </div>

@@ -5,12 +5,10 @@
   body {
     font-family: sans-serif;
   }
-  h1 {
+  .Title {
     justify-content: center;
     display: flex;
     margin-bottom: 25px;
-    margin-top: 50px;
-    padding-top: 50px;
     color: white;
   }
   .The-realApp {
@@ -80,7 +78,7 @@
   .music-album-play-btn {
     width: 80px;
   }
-  .music-album-play-btn button {
+  .btn2 {
     background-color: #90ee90;
     height: 40px;
     width: 100%;
@@ -88,8 +86,20 @@
     border-radius: 15px;
     cursor: pointer;
   }
-  .music-album-play-btn button:hover {
+  .btn2:hover {
     background-color: #008000;
+    color: white;
+  }
+  .btn3 {
+    background-color: #b1b3b1;
+    height: 40px;
+    width: 100%;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+  .btn3:hover {
+    background-color: #696b69;
     color: white;
   }
   
@@ -113,4 +123,11 @@
   .list-music p {
     color: white;
   }
+  form {
+    width: 20%;
+    gap: 5px;
+    margin: auto;
+    color: white;
+  }
+  
   

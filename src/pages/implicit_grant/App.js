@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import "./App.css";
+import { Button, ButtonGroup } from '@chakra-ui/react'
 
 // import SpotifyGetPlaylists from "./components/SpotifyGetPlaylists/SpotifyGetPlaylists";
 const CLIENT_ID = "4367530b949f4ae8888dcc4a7a1872f8"; // insert your client id here from spotify
@@ -44,7 +45,7 @@ const Login = () => {
   return (
     <div className="container">
       <h1>Silahkan Login</h1>
-      <button onClick={handleLogin}>login to spotify</button>
+      <Button onClick={handleLogin} className="btn-login">login to spotify</Button>
     </div>
   );
 };

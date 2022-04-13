@@ -2,6 +2,10 @@ import React from "react";
 import "./home.css";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { IconButton } from "@chakra-ui/react";
+import { SearchIcon } from "@chakra-ui/icons";
+import { Input } from "@chakra-ui/react";
+import { Heading } from '@chakra-ui/react'
 
 import AlbumName from "../../components/album_name";
 import ArtistName from "../../components/artist_name";
@@ -65,14 +69,22 @@ export default function Home() {
   console.log(data);
   return (
     <div className="The-realApp">
-      <h1>Create Playlist</h1>
+      <Heading className="Title" as="h3" size="lg">
+        Create Playlist
+      </Heading>
       <form className="search-form" onSubmit={getDataAndRender}>
-        <input
+        <Input
           type="text"
           placeholder="Search by album/track"
           onChange={(e) => setName(e.target.value)}
         />
-        <button type="submit">Search</button>
+
+        <IconButton
+          variant="filled"
+          aria-label="Search database"
+          icon={<SearchIcon />}
+          type="submit"
+        />
       </form>
       <Playlist token={token} selected={selected} />
       <div className="App">
