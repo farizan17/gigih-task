@@ -1,20 +1,26 @@
-const parseJSON = (res) => res.json();
-const SPOTIFYURL = "https://api.spotify.com/v1/me";
+import { createSlice } from "@reduxjs/toolkit";
 
-export const fetchUserData = (token) => {
-  return (dispatch) => {
-    dispatch({ type: "LOADING_SPOTIFY_DATA" });
-    return fetch(SPOTIFYURL, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-    })
-      .then(parseJSON)
-      .then((data) => {
-        dispatch({ type: "ADD_SPOTIFY_USER", spotifyuser: data });
-      });
-  };
-};
+export const tokenSlice = createSlice({
+  name: "token",
+  initialState: {
+    token: localStorage.getItem("accessToken") || "",
+    expiredToken: false,
+  },
+  reducers: {
+    setToken: (state, action) => {
+      localStorage.setItem("accessToken", action.payload);
+      state.token = localStorage.getItem("accessToken");
+    },
+    removeToken: (state) => {
+      localStorage.removeItem("accessToken");
+      state.token = "";
+    },
+    resetToken: (state, action) => {
+      state.expiredToken = action.payload;
+    },
+  },
+});
+
+export const { setToken, removeToken, resetToken } = tokenSlice.actions;
+
+export default tokenSlice.reducer;

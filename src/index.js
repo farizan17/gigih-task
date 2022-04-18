@@ -4,16 +4,14 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import {Provider} from "react-redux";
-import { createStore, compose, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
-import trackReducer from "./components/api/redux/store";
+import store from "./components/api/redux/store";
 import { ChakraProvider } from '@chakra-ui/react'
 
-const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(
-  trackReducer,
-  composeEnhancer(applyMiddleware(thunk))
-);
+// const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// const store = createStore(
+//   trackReducer,
+//   composeEnhancer(applyMiddleware(thunk))
+// );
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
