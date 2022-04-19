@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import { IconButton } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { Input } from "@chakra-ui/react";
-import { Heading } from '@chakra-ui/react'
-import { RootState } from "../pages/reducers/store";
+import { Heading } from "@chakra-ui/react";
+import { RootState } from "../../components/api/redux/store";
 
 import AlbumName from "../../components/album_name";
 import ArtistName from "../../components/artist_name";
@@ -15,7 +15,7 @@ import AlbumImage from "../../components/image_album";
 import Playlist from "../playlist";
 
 export default function Home() {
-  const token = useSelector<RootState>((state) => state.token.token); 
+  const token = useSelector((state: RootState) => state.token.token);
   const [data, setData] = useState([]);
   const [name, setName] = useState("");
   const [selected, setSelected] = useState([]);
