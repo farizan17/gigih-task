@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import { Textarea } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
-import { Button, ButtonGroup } from "@chakra-ui/react";
-import { useToast } from '@chakra-ui/react'
-
+import { Button } from "@chakra-ui/react";
+import toast from 'react-hot-toast';
 import "./index.css";
 
 function Playlist({ token, selected }) {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [id, setId] = useState("");
-  const toast = useToast()
 
   const create = async (e) => {
     e.preventDefault();
@@ -31,10 +29,16 @@ function Playlist({ token, selected }) {
       redirect: "follow",
     };
 
-    fetch("https://api.spotify.com/v1/users/mfarizan/playlists", requestOptions)
+    const fetchPlaylist = fetch("https://api.spotify.com/v1/users/mfarizan/playlists", requestOptions)
       .then((response) => response.json())
       .then((data) => setId(data.id))
       .catch((error) => console.log("error", error));
+
+      toast.promise(fetchPlaylist, {
+        loading: 'Loading',
+        success: 'Playlist telah dibuat',
+        error: 'Playlist gagal dibuat',
+      });
   };
   const addSong = async () => {
     
@@ -51,14 +55,21 @@ function Playlist({ token, selected }) {
       redirect: "follow",
     };
 
-    fetch(
+    const fetchSong = fetch(
       `https://api.spotify.com/v1/playlists/${id}/tracks?uris=${selected}`,
       requestOptions
     )
       .then((response) => response.text())
       .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
-  };
+      .catch((error) => console.log("error", error))
+      .finally(() => window.location.reload());
+
+      toast.promise(fetchSong, {
+        loading: 'Loading',
+        success: 'Lagu sudah masuk playlist',
+        error: 'Lagu gagal masuk playlist',
+      });
+    };
   return (
     <div className="container-create">
       <div className="kotak-create">
@@ -68,6 +79,7 @@ function Playlist({ token, selected }) {
               className="playlist-name"
               type="text"
               placeholder="Playlist title"
+              minLength={10}
               onChange={(e) => setTitle(e.target.value)}
             />
             <br></br>

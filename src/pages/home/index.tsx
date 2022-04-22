@@ -6,13 +6,17 @@ import { IconButton } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { Input } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { RootState } from "../../components/api/redux/store";
+import toast from 'react-hot-toast';
+
 
 import AlbumName from "../../components/album_name";
 import ArtistName from "../../components/artist_name";
 import AlbumImage from "../../components/image_album";
 
 import Playlist from "../playlist";
+import Login from "../implicit_grant/App";
 
 export default function Home() {
   const token = useSelector((state: RootState) => state.token.token);
@@ -20,29 +24,19 @@ export default function Home() {
   const [name, setName] = useState("");
   const [selected, setSelected] = useState([]);
 
-  // useEffect(() => {
-  //   const hash = window.location.hash;
-  //   let token = window.localStorage.getItem("token");
-
-  //   // getToken()
-
-  //   if (!token && hash) {
-  //     token = hash
-  //       .substring(1)
-  //       .split("&")
-  //       .find((elem) => elem.startsWith("access_token"))
-  //       .split("=")[1];
-
-  //     window.location.hash = "";
-  //     window.localStorage.setItem("token", token);
-  //   }
-
-  //   setToken(token);
-  // }, []);
+  const validToken = () => {
+    if (token) {
+      return true;
+    }
+  };
 
   const handleSelect = (uri) => {
-    setSelected([...selected, uri]);
+    setSelected([...selected, uri],);
   };
+
+  useEffect(() => {
+    toast.success(`${selected.length} lagu telah ditambahkan`); 
+ }, [selected]);
 
   const handleDelete = (uri) => {
     setSelected(selected.filter((item) => item !== uri));
@@ -68,65 +62,73 @@ export default function Home() {
   };
 
   console.log(data);
+  console.log(selected.length)
   return (
     <div className="The-realApp">
-      <Heading className="Title" as="h3" size="lg">
-        Create Playlist
-      </Heading>
-      <form className="search-form" onSubmit={getDataAndRender}>
-        <Input
-          type="text"
-          placeholder="Search by album/track"
-          onChange={(e) => setName(e.target.value)}
-        />
+      {validToken() ? (
+        <>
+          <Heading className="Title" as="h3" size="lg">
+            Create Playlist
+          </Heading>
+          <form className="search-form" onSubmit={getDataAndRender}>
+            <Input
+              type="text"
+              placeholder="Search by album/track"
+              onChange={(e) => setName(e.target.value)}
+            />
 
-        <IconButton
-          variant="filled"
-          aria-label="Search database"
-          icon={<SearchIcon />}
-          type="submit"
-        />
-      </form>
-      <Playlist token={token} selected={selected} />
-      <div className="App">
-        {data &&
-          data.map((v, index) => {
-            return (
-              <div className="music-play" key={index}>
-                <div className="music-container">
-                  <AlbumImage image={v.album.images[0].url} />
-                  <div className="music-text">
-                    <div className="music-album">
-                      <div className="music-album-text">
-                        <AlbumName album={v.name} />
-                        <ArtistName artist={v.artists[0].name} />
-                      </div>
-                      <div className="music-album-play-btn">
-                        <div>
-                          {selected.includes(v.uri) ? (
-                            <button
-                              className="btn3"
-                              onClick={() => handleDelete(v.uri)}
-                            >
-                              Selected
-                            </button>
-                          ) : (
-                            <button
-                              className="btn2"
-                              onClick={() => handleSelect(v.uri)}
-                            >
-                              Select
-                            </button>
-                          )}
+            <IconButton
+              variant="filled"
+              aria-label="Search database"
+              icon={<SearchIcon />}
+              type="submit"
+            />
+          </form>
+          <Playlist token={token} selected={selected} />
+          <div className="App">
+            {data &&
+              data.map((v, index) => {
+                return (
+                  <div className="music-play" key={index}>
+                    <div className="music-container">
+                      <AlbumImage image={v.album.images[0].url} />
+                      <div className="music-text">
+                        <div className="music-album">
+                          <div className="music-album-text">
+                            <AlbumName album={v.name} />
+                            <ArtistName artist={v.artists[0].name} />
+                          </div>
+                          <div className="music-album-play-btn">
+                            <div>
+                              {selected.includes(v.uri) ? (
+                                <Button
+                                  className="btn3"
+                                  onClick={() => handleDelete(v.uri)}
+                                >
+                                  Selected
+                                </Button>
+                              ) : (
+                                <Button
+                                  colorScheme="teal"
+                                  className="btn2"
+                                  onClick={() => handleSelect(v.uri)}
+                                >
+                                  Select
+                                </Button>
+                              )}
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            );
-          })}
-      </div>
+                );
+              })}
+          </div>
+        </>
+      ) : (
+        <Login />
+      )}
     </div>
   );
 }

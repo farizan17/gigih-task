@@ -1,0 +1,29 @@
+.header-nonlogin {
+    justify-content: center;
+    background-color: #282828;
+}
+.header-nonlogin h1 {
+    width: 20%;
+    margin: auto;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    padding: 30px 50px 20px 50px;
+
+}
+.header {
+    background-color: #282828;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 30px 50px 20px 50px;
+    align-items: center;
+}
+.navigation {
+    display: flex;
+    gap: 50px;
+}
+.header p {
+    color: white;
+}

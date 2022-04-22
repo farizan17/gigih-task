@@ -3,9 +3,9 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import {Provider} from "react-redux";
+import { Provider } from "react-redux";
 import store from "./components/api/redux/store";
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider } from "@chakra-ui/react";
 
 // const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 // const store = createStore(
@@ -15,9 +15,9 @@ import { ChakraProvider } from '@chakra-ui/react'
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ChakraProvider>
-      <App />
-      </ChakraProvider>
+        <ChakraProvider>
+          <App />
+        </ChakraProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
