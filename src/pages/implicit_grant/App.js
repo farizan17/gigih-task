@@ -7,7 +7,7 @@ import {setToken} from "../../components/api/redux/slice"
 // import SpotifyGetPlaylists from "./components/SpotifyGetPlaylists/SpotifyGetPlaylists";
 const CLIENT_ID = "4367530b949f4ae8888dcc4a7a1872f8"; // insert your client id here from spotify
 const SPOTIFY_AUTHORIZE_ENDPOINT = "https://accounts.spotify.com/authorize";
-const REDIRECT_URL_AFTER_LOGIN = "http://localhost:3000/dashboard";
+const REDIRECT_URL_AFTER_LOGIN = process.env.REACT_APP_URL;
 const SCOPES = "playlist-modify-private";
 
 /* 
